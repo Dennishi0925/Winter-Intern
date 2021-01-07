@@ -8,6 +8,7 @@ install.packages("textdata")
 # news article
 df_pts_raw <- read_csv("data/TM01/pts_1016-1114_all.csv")
 # df_pts_raw <- read_rds("data/TM01/pts_1016-1114_all.rds")
+df_pts_raw
 
 # stopword
 df_stopword <- read_csv("data/TM01/df_stopword.csv")

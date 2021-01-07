@@ -1,5 +1,4 @@
 library(tidyverse)
-# library(clipr)
 library(jiebaR)
 library(lubridate)
 library(tidytext)
