@@ -9,19 +9,21 @@ library(tm)
 ### load data
 df_all_clean <- read_rds("data/TM02/df_all_clean.rds")
 df_text_seg_unnest <- read_rds("data/TM02/df_text_segj_unnest.rds")
-df_stopwords <- read_rds("data/TM02/stopWords.rds")
+df_stopword <- read_rds("data/TM02/df_stopword.rds")
 df_sentiment <- read_rds("data/TM02/df_sentiment.rds")
 
 ### stopwords
-df_news_seg_clean <- df_text_seg_unnest %>% filter(text_POS != "FW") %>%
-  bind_rows(
-    df_text_seg_unnest %>% filter(text_POS == "FW") %>%
-      unnest_tokens(text_segment, text_segment)
-  ) %>%
+df_news_seg_clean <- 
+  df_text_seg_unnest %>% #filter(text_POS != "FW") %>%
+  # bind_rows(
+  #   df_text_seg_unnest %>% filter(text_POS == "FW") %>%
+  #     unnest_tokens(text_segment, text_segment)
+  # ) %>%
   filter(!str_detect(text_segment, "[a-zA-Z0-9]+")) %>%
-  filter(!str_detect(text_POS, "space|ther")) %>%
+  # filter(!str_detect(text_POS, "space|ther")) %>%
+  filter(!str_detect(text_POS, "space")) %>%
   filter(!str_detect(text_segment, "「|」|【|】|／")) %>%
-  anti_join(df_stopwords, by = c("text_segment" = "word"))
+  anti_join(df_stopword, by = c("text_segment" = "word"))
 
 ### sentiment data
 df_news_sentiment <- df_news_seg_clean %>% select(id, text_segment) %>%
